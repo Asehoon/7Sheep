@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cainos.PixelArtTopDown_Basic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using UnityEngine.U2D;
+using Cainos.PixelArtTopDown_Basic;
 
 public class ItemMananger : MonoBehaviour
 {
@@ -14,9 +13,14 @@ public class ItemMananger : MonoBehaviour
         SpeedDown,
         Trap,
     }
+
     public static ItemMananger Instance;
 
     public GameObject Zoom;
+    public GameObject Speed;
+
+    private Dictionary<ItemType, float> activeEffects = new();
+    private Dictionary<ItemType, Coroutine> runningCoroutines = new();
 
     private void Awake()
     {
@@ -26,67 +30,103 @@ public class ItemMananger : MonoBehaviour
 
     public void ApplyItemEffect(ItemType type, GameObject target, Sprite sprite = null)
     {
+        float effectDuration = GetEffectDuration(type);
+
+        if (runningCoroutines.ContainsKey(type))
+        {
+            activeEffects[type] += effectDuration;
+            return;
+        }
+
         switch (type)
         {
             case ItemType.CameraZoom:
-                CameraZoomEffect(sprite);
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    Zoom,
+                    effectDuration,
+                    sprite,
+                    onStart: () =>
+                    {
+                        Camera.main.orthographicSize *= 2;
+                    },
+                    onEnd: () =>
+                    {
+                        Camera.main.orthographicSize /= 2;
+                    }
+                ));
                 break;
+
             case ItemType.SpeedDown:
-                SpeedDown(target,sprite);
+                var movement = target.GetComponent<TopDownCharacterController>();
+                float originalSpeed = movement.speed;
+
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    Speed,
+                    effectDuration,
+                    sprite,
+                    onStart: () => movement.speed *= 0.5f,
+                    onEnd: () => movement.speed = originalSpeed
+                ));
+                break;
+
+            case ItemType.Trap:
+                var collider = target.GetComponent<Collider2D>();
+
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    Speed, // 임시로 Speed UI 사용하거나 새 UI GameObject 추가
+                    effectDuration,
+                    sprite,
+                    onStart: () => collider.enabled = false,
+                    onEnd: () => collider.enabled = true
+                ));
                 break;
         }
     }
 
-    private void CameraZoomEffect(Sprite sprite)
+    private float GetEffectDuration(ItemType type)
     {
-        Camera cam = Camera.main;
-        float originalSize = cam.orthographicSize;
-        float targetSize = originalSize * 2;
-        
-        cam.orthographicSize = targetSize;
-        StartCoroutine(ZoomSequence(originalSize, sprite, 30f));
+        return type switch
+        {
+            ItemType.CameraZoom => 30f,
+            ItemType.SpeedDown => 5f,
+            ItemType.Trap => 10f,
+            _ => 5f
+        };
     }
 
-    private void SpeedDown(GameObject target, Sprite sprite)
+    private IEnumerator RunTimedEffect(
+        ItemType type,
+        GameObject uiObject,
+        float duration,
+        Sprite sprite,
+        System.Action onStart,
+        System.Action onEnd)
     {
-        var movement = target.GetComponent<TopDownCharacterController>();
-        float originalSpeed = movement.speed;
-        movement.speed *= 0.5f;
-        StartCoroutine(SpeedDownSequence(movement, originalSpeed, sprite, 5f));
-    }
+        activeEffects[type] = duration;
 
-    private IEnumerator ZoomSequence(float originalSize, Sprite sprite, float duration)
-    {
-        yield return StartCoroutine(Timer(duration, sprite));
-        Camera cam= Camera.main;
-        cam.orthographicSize = originalSize;
-    }
+        uiObject.SetActive(true);
+        TMP_Text text = uiObject.GetComponentInChildren<TMP_Text>(true);
+        Image image = uiObject.GetComponentInChildren<Image>(true);
+        if (image != null) image.sprite = sprite;
 
-    private IEnumerator SpeedDownSequence(TopDownCharacterController movement, float originalSpeed, Sprite sprite, float duration)
-    {
-        yield return StartCoroutine(Timer(duration, sprite));  
-        movement.speed = originalSpeed;                        
-    }
+        onStart?.Invoke();
 
-
-
-    private IEnumerator Timer (float timer, Sprite sprite)
-    {
-        Zoom.SetActive(true); // GameObject 활성화
-
-        TMP_Text text = Zoom.GetComponentInChildren<TMP_Text>(true);
-        Image image = Zoom.GetComponentInChildren<Image>(true);
-
-        image.sprite = sprite;
-
-        while (timer > 0)
+        while (activeEffects[type] > 0)
         {
             if (text != null)
-                text.text = $"Time: {timer:F1}s";
-            timer -= Time.deltaTime;
+                text.text = $"Time: {activeEffects[type]:F1}s";
+
+            activeEffects[type] -= Time.deltaTime;
             yield return null;
         }
 
-        Zoom.SetActive(false); // GameObject 비활성화
+        onEnd?.Invoke();
+
+        uiObject.SetActive(false);
+        activeEffects.Remove(type);
+        runningCoroutines.Remove(type);
     }
 }
