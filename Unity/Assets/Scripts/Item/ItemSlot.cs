@@ -28,7 +28,10 @@ public class ItemSlot : MonoBehaviour
             icon.color = new Color(1, 1, 1, 0);
         }
         isFilled = true;
+<<<<<<< HEAD
         storedItem.target = item.target;
+=======
+>>>>>>> 6018ab6dcd23027e3821d563781bc700e414561a
     }
 
     public void ClearSlot()
