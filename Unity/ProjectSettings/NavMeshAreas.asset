@@ -15,9 +15,9 @@ NavMeshProjectSettings:
     cost: 1
   - name: B
     cost: 1
-  - name: 
+  - name: C
     cost: 1
-  - name: 
+  - name: D
     cost: 1
   - name: 
     cost: 1

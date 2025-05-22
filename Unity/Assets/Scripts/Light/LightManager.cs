@@ -47,6 +47,7 @@ public class LightManager : MonoBehaviour
         childLights[0].transform.position = playerTransform.position;
         childLights[1].transform.position = wolfTransform.position;
         childLights[2].transform.position = lampTransform.position;
+
         SetLights(false);
     }
     public void Start()

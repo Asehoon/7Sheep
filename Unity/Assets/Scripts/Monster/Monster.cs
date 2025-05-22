@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour
     public int patrolCount = 0; // 탐색 횟수 카운트
     private bool playerDetected = false;
 
+
     private enum State
     {
         Idle,   // 정지 상태 (2초 대기)

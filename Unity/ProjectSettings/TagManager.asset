@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - Enemy
   - Bush
+  - Sheep
   layers:
   - Default
   - TransparentFX

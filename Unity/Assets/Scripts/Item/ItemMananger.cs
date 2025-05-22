@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Cainos.PixelArtTopDown_Basic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+using Cainos.PixelArtTopDown_Basic;
+using Mono.Cecil.Cil;
 
 public class ItemMananger : MonoBehaviour
 {
@@ -15,7 +17,13 @@ public class ItemMananger : MonoBehaviour
 
     public static ItemMananger Instance;
 
-    public GameObject Zoom; 
+    public GameObject effectUIPrefab;  // UI 프리팹
+    public Transform uiGroup;          // VerticalLayoutGroup이 붙은 부모
+
+    private Dictionary<ItemType, float> activeEffects = new();
+    private Dictionary<ItemType, Coroutine> runningCoroutines = new();
+
+    float originalSpeed;
 
     private void Awake()
     {
@@ -23,54 +31,122 @@ public class ItemMananger : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void ApplyItemEffect(ItemType type, GameObject target)
+    // 1. originalSpeed를 각 GameObject별로 저장
+    private Dictionary<GameObject, float> originalSpeeds = new();
+
+    public void ApplyItemEffect(ItemType type, GameObject target, Sprite sprite = null)
     {
-        switch (type)
+        float effectDuration = GetEffectDuration(type);
+
+        if (runningCoroutines.ContainsKey(type))
         {
-            case ItemType.CameraZoom:
-                StartCoroutine(CameraZoomEffect());
-                break;
-            case ItemType.SpeedDown:
-                StartCoroutine(SpeedDown(target));
-                break;
-        }
-    }
-
-    private IEnumerator CameraZoomEffect()
-    {
-        Camera cam = Camera.main;
-        float originalSize = cam.orthographicSize;
-        float targetSize = originalSize * 2;
-        float duration = 30f;
-        float timer = duration;
-
-        cam.orthographicSize = targetSize;
-
-        Zoom.SetActive(true); // GameObject 활성화
-
-        TMP_Text text = Zoom.GetComponentInChildren<TMP_Text>(true);
-
-        while (timer > 0)
-        {
-            if (text != null)
-                text.text = $"Zoom Time: {timer:F1}s";
-            timer -= Time.deltaTime;
-            yield return null;
+            activeEffects[type] += effectDuration;
+            return;
         }
 
-        cam.orthographicSize = originalSize;
-        Zoom.SetActive(false); // GameObject 비활성화
-    }
+        System.Action<float> SetSpeed = null;
 
-    private IEnumerator SpeedDown(GameObject target)
-    {
         var movement = target.GetComponent<TopDownCharacterController>();
         if (movement != null)
         {
-            float originalSpeed = movement.speed;
-            movement.speed *= 0.5f;
-            yield return new WaitForSeconds(3f);
-            movement.speed = originalSpeed;
+            if (!originalSpeeds.ContainsKey(target))
+                originalSpeeds[target] = movement.speed;
+
+            SetSpeed = value => movement.speed = value;
         }
+        else
+        {
+            var enemy = target.GetComponent<TopDownWolfController>();
+            if (!originalSpeeds.ContainsKey(target))
+                originalSpeeds[target] = enemy.speed;
+
+            SetSpeed = value => enemy.speed = value;
+        }
+
+        float originalSpeed = originalSpeeds[target];
+
+        switch (type)
+        {
+            case ItemType.CameraZoom:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () => Camera.main.orthographicSize *= 2,
+                    onEnd: () => Camera.main.orthographicSize /= 2,
+                    targetName: target.name
+                ));
+                break;
+
+            case ItemType.SpeedDown:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () => SetSpeed?.Invoke(originalSpeed * 0.5f),
+                    onEnd: () => SetSpeed?.Invoke(originalSpeed),
+                    targetName: target.name
+                ));
+                break;
+
+            case ItemType.Trap:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () => SetSpeed?.Invoke(0f),
+                    onEnd: () => SetSpeed?.Invoke(originalSpeed),
+                    targetName: target.name
+                ));
+                break;
+        }
+    }
+
+
+
+    private float GetEffectDuration(ItemType type)
+    {
+        return type switch
+        {
+            ItemType.CameraZoom => 30f,
+            ItemType.SpeedDown => 5f,
+            ItemType.Trap => 3f,
+            _ => 5f
+        };
+    }
+
+    private IEnumerator RunTimedEffect(
+        ItemType type,
+        float duration,
+        Sprite sprite,
+        System.Action onStart,
+        System.Action onEnd,
+        string targetName = "")
+    {
+        activeEffects[type] = duration;
+
+        // UI 프리팹을 생성
+        GameObject uiObject = Instantiate(effectUIPrefab, uiGroup);
+        TMP_Text text = uiObject.GetComponentInChildren<TMP_Text>(true);
+        Image image = uiObject.GetComponentInChildren<Image>(true);
+        if (image != null) image.sprite = sprite;
+
+        onStart?.Invoke();
+
+        while (activeEffects[type] > 0)
+        {
+            if (text != null)
+                text.text = $"{targetName} - {type}: {activeEffects[type]:F1}s";
+
+            activeEffects[type] -= Time.deltaTime;
+            yield return null;
+        }
+
+        onEnd?.Invoke();
+
+        activeEffects.Remove(type);
+        runningCoroutines.Remove(type);
+
+        Destroy(uiObject); // 효과가 끝나면 UI 제거
     }
 }
