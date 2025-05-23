@@ -23,16 +23,11 @@ public class ItemMananger : MonoBehaviour
     private Dictionary<ItemType, float> activeEffects = new();
     private Dictionary<ItemType, Coroutine> runningCoroutines = new();
 
-    float originalSpeed;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
-
-    // 1. originalSpeed를 각 GameObject별로 저장
-    private Dictionary<GameObject, float> originalSpeeds = new();
 
     public void ApplyItemEffect(ItemType type, GameObject target, Sprite sprite = null)
     {
@@ -44,26 +39,8 @@ public class ItemMananger : MonoBehaviour
             return;
         }
 
-        System.Action<float> SetSpeed = null;
-
-        var movement = target.GetComponent<TopDownCharacterController>();
-        if (movement != null)
-        {
-            if (!originalSpeeds.ContainsKey(target))
-                originalSpeeds[target] = movement.speed;
-
-            SetSpeed = value => movement.speed = value;
-        }
-        else
-        {
-            var enemy = target.GetComponent<TopDownWolfController>();
-            if (!originalSpeeds.ContainsKey(target))
-                originalSpeeds[target] = enemy.speed;
-
-            SetSpeed = value => enemy.speed = value;
-        }
-
-        float originalSpeed = originalSpeeds[target];
+        TopDownCharacterController movement = target.GetComponent<TopDownCharacterController>();
+        TopDownWolfController enemy = target.GetComponent<TopDownWolfController>();
 
         switch (type)
         {
@@ -83,8 +60,12 @@ public class ItemMananger : MonoBehaviour
                     type,
                     effectDuration,
                     sprite,
-                    onStart: () => SetSpeed?.Invoke(originalSpeed * 0.5f),
-                    onEnd: () => SetSpeed?.Invoke(originalSpeed),
+                    onStart: () =>
+                    {
+                        enemy.isItemOn = true;
+                        enemy.speed /= 2;
+                    },
+                    onEnd: () => enemy.isItemOn = false,
                     targetName: target.name
                 ));
                 break;
@@ -94,8 +75,12 @@ public class ItemMananger : MonoBehaviour
                     type,
                     effectDuration,
                     sprite,
-                    onStart: () => SetSpeed?.Invoke(0f),
-                    onEnd: () => SetSpeed?.Invoke(originalSpeed),
+                    onStart: () =>
+                    {
+                        enemy.isItemOn = true;
+                        enemy.speed = 0;
+                    },
+                    onEnd: () => enemy.isItemOn = false,
                     targetName: target.name
                 ));
                 break;

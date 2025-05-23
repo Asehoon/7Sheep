@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class PlayerDetectionTrigger : MonoBehaviour
 {
     [SerializeField] private Image buttonImage1; // 버튼 이미지 1
@@ -74,15 +73,21 @@ public class PlayerDetectionTrigger : MonoBehaviour
 
     private void Rescue()
     {
-        // 구출 처리 로직 (예: NPC 비활성화, 애니메이션, 사운드 등)
         if (blinkCoroutine != null) StopCoroutine(blinkCoroutine);
         if (positionCoroutine != null) StopCoroutine(positionCoroutine);
 
         buttonImage1.gameObject.SetActive(false);
         buttonImage2.gameObject.SetActive(false);
 
-        // 예: 게임 오브젝트 비활성화
+        // 구출 처리
+        SpriteRenderer spriteRenderer = GetComponentInParent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            Sprite sheepSprite = spriteRenderer.sprite;
+            GameManager.Instance?.RescueSheep(sheepSprite);
+        }
+
         Destroy(transform.parent.gameObject);
-        // 구출 ui 표시
     }
+
 }
