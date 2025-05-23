@@ -1,0 +1,288 @@
+Using pre-set license
+Built from '2023.2/staging' branch; Version is '2023.2.20f1 (0e25a174756c) revision 927137'; Using compiler version '193431935'; Build Type 'Release'
+OS: 'Windows 10  (10.0.19045) 64bit Core' Language: 'ko' Physical Memory: 15941 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 1
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity 2023.2.20f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker6
+-projectPath
+C:/Users/세훈/Downloads/7Sheep-main/7Sheep-main/Unity
+-logFile
+Logs/AssetImportWorker6.log
+-srvPort
+59724
+-job-worker-count
+7
+-background-job-worker-count
+8
+-asset-garbage-collectors
+1
+Successfully changed project path to: C:/Users/세훈/Downloads/7Sheep-main/7Sheep-main/Unity
+C:/Users/세훈/Downloads/7Sheep-main/7Sheep-main/Unity
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [14384] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 2622486380 [EditorId] 2622486380 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-DBP5CAK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [14384] Host "[IP] 192.168.56.1 [Port] 0 [Flags] 2 [Guid] 2622486380 [EditorId] 2622486380 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-DBP5CAK) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+JobSystem: Creating JobQueue using job-worker-count value 7
+[Physics::Module] Initialized MultithreadedJobDispatcher with 7 workers.
+Library Redirect Path: Library/
+Refreshing native plugins compatible for Editor in 3.90 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2023.2.20f1 (0e25a174756c)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity 2023.2.20f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/세훈/Downloads/7Sheep-main/7Sheep-main/Unity/Assets
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) Iris(R) Xe Graphics (ID=0xa7a0)
+    Vendor:   Intel
+    VRAM:     7970 MB
+    Driver:   32.0.101.6129
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity 2023.2.20f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity 2023.2.20f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity 2023.2.20f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56764
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity 2023.2.20f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.006388 seconds.
+- Loaded All Assemblies, in  0.649 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.519 seconds
+Domain Reload Profiling: 1164ms
+	BeginReloadAssembly (235ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (1ms)
+	RebuildCommonClasses (54ms)
+	RebuildNativeTypeToScriptingClass (18ms)
+	initialDomainReloadingComplete (82ms)
+	LoadAllAssembliesAndSetupDomain (255ms)
+		LoadAssemblies (229ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (251ms)
+			TypeCache.Refresh (248ms)
+				TypeCache.ScanAssembly (224ms)
+			BuildScriptInfoCaches (0ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (520ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (430ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (14ms)
+			SetLoadedEditorAssemblies (8ms)
+			BeforeProcessingInitializeOnLoad (12ms)
+			ProcessInitializeOnLoadAttributes (309ms)
+			ProcessInitializeOnLoadMethodAttributes (87ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+========================================================================
+Worker process is ready to serve import requests
+Import Worker Mode flag is 0x00
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  1.718 seconds
+Refreshing native plugins compatible for Editor in 3.25 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 4.13 ms, found 4 plugins.
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  1.171 seconds
+Domain Reload Profiling: 2876ms
+	BeginReloadAssembly (646ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (9ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (56ms)
+	RebuildCommonClasses (47ms)
+	RebuildNativeTypeToScriptingClass (16ms)
+	initialDomainReloadingComplete (60ms)
+	LoadAllAssembliesAndSetupDomain (935ms)
+		LoadAssemblies (709ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (405ms)
+			TypeCache.Refresh (319ms)
+				TypeCache.ScanAssembly (285ms)
+			BuildScriptInfoCaches (62ms)
+			ResolveRequiredComponents (18ms)
+	FinalizeReload (1171ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (823ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (3ms)
+			SetLoadedEditorAssemblies (4ms)
+			BeforeProcessingInitializeOnLoad (96ms)
+			ProcessInitializeOnLoadAttributes (612ms)
+			ProcessInitializeOnLoadMethodAttributes (96ms)
+			AfterProcessingInitializeOnLoad (10ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (19ms)
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.02 seconds
+Refreshing native plugins compatible for Editor in 2.38 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 188 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 6030 unused Assets / (5.1 MB). Loaded Objects now: 6764.
+Memory consumption went from 187.2 MB to 182.1 MB.
+Total: 12.848600 ms (FindLiveObjects: 1.008400 ms CreateObjectMapping: 0.590300 ms MarkObjects: 7.547700 ms  DeleteObjects: 3.700400 ms)
+
+========================================================================
+Received Import Request.
+  Time since last request: 293758.298702 seconds.
+  path: Assets/house/textures/rug-surviv.png
+  artifactKey: Guid(69acb0b999b0230418b61ac3c470ad7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/textures/rug-surviv.png using Guid(69acb0b999b0230418b61ac3c470ad7a) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '1e5246455893e4ff5c1a7b9544962958') in 0.1437595 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000042 seconds.
+  path: Assets/house/BUILDING/building-bathhouse-sideroom-01.png
+  artifactKey: Guid(79da304a8c292f547896f7fe3986bf52) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bathhouse-sideroom-01.png using Guid(79da304a8c292f547896f7fe3986bf52) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '3c04097c2589874a4110bdaf20194e26') in 0.048852 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000044 seconds.
+  path: Assets/house/BUILDING/building-bunker-chrys-chamber-ceiling-01.png
+  artifactKey: Guid(605b7ca312ff9854d80756505a3a09d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-chrys-chamber-ceiling-01.png using Guid(605b7ca312ff9854d80756505a3a09d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'ca9339217adeae68dbdffd1130d3027f') in 0.0378525 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000062 seconds.
+  path: Assets/house/Obstacle/obstacle-wall-glass-12-2.png
+  artifactKey: Guid(02b386a05ca9d70448e161dfc5e0744e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/Obstacle/obstacle-wall-glass-12-2.png using Guid(02b386a05ca9d70448e161dfc5e0744e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8cc2e89d05ef86794b5db7939ceed343') in 0.030597 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000152 seconds.
+  path: Assets/house/BUILDING/building-vault-floor.png
+  artifactKey: Guid(c35a329a4fa0e3649b5bde92f43494a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-vault-floor.png using Guid(c35a329a4fa0e3649b5bde92f43494a1) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '30ae12d3382f8c4360ff2a2c249291cc') in 0.0496325 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.935038 seconds.
+  path: Assets/house/Test/TREE 1 - DAY.png
+  artifactKey: Guid(f4a9d07ba4e65eb4d93d7bd1a25b2d43) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/Test/TREE 1 - DAY.png using Guid(f4a9d07ba4e65eb4d93d7bd1a25b2d43) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '551e4f598114c8500522049ba184e2e0') in 0.0242033 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.015310 seconds.
+  path: Assets/house/Test/TREE 3 - DAY.png
+  artifactKey: Guid(2a711fbd3f9926c4d9f0b2519ee96126) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/Test/TREE 3 - DAY.png using Guid(2a711fbd3f9926c4d9f0b2519ee96126) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '01b3c00070d0dd5f91bfdf2368e6e1bf') in 0.0312125 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.251558 seconds.
+  path: Assets/house/BUILDING/building-bunker-hatchet-chamber-floor-01.png
+  artifactKey: Guid(9c7c1e93f674ec449813288def05b83e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-hatchet-chamber-floor-01.png using Guid(9c7c1e93f674ec449813288def05b83e) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'bb34741bb3dce5aa0602f6da53692b15') in 0.0316236 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/house/BUILDING/building-bunker-hatchet-compartment-ceiling-03.png
+  artifactKey: Guid(0c25cde8244464547a95174bfcdf821b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-hatchet-compartment-ceiling-03.png using Guid(0c25cde8244464547a95174bfcdf821b) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'f778af667a18c20b9c92b62814faff2d') in 0.0245105 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005091 seconds.
+  path: Assets/house/BUILDING/building-bunker-hatchet-compartment-floor-02c.png
+  artifactKey: Guid(2324607b3f52ba447928713366b38216) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-hatchet-compartment-floor-02c.png using Guid(2324607b3f52ba447928713366b38216) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '5e3e4bb6bfa7e4b6b4432f51cd33a096') in 0.0344713 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.009454 seconds.
+  path: Assets/house/BUILDING/building-bunker-hatchet-compartment-floor-03c.png
+  artifactKey: Guid(6389c7fe202195847a331de8ad4051d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-hatchet-compartment-floor-03c.png using Guid(6389c7fe202195847a331de8ad4051d8) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '8c057bdddffa523750ed2a52db4a408e') in 0.0389781 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.945110 seconds.
+  path: Assets/house/BUILDING/building-bunker-conch-chamber-ceiling-02.png
+  artifactKey: Guid(f13f977c110f69f43be6632e603bd480) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-conch-chamber-ceiling-02.png using Guid(f13f977c110f69f43be6632e603bd480) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: '0a0b04143963a5055f68af216453df64') in 0.0307133 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.005414 seconds.
+  path: Assets/house/BUILDING/building-bunker-conch-compartment-floor-01.png
+  artifactKey: Guid(1f50167a5107fd444ae534e99acaf870) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-conch-compartment-floor-01.png using Guid(1f50167a5107fd444ae534e99acaf870) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'bbd573153898bdce1d97284793d0835d') in 0.061109 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.003475 seconds.
+  path: Assets/house/BUILDING/building-bunker-egg-chamber-floor-01.png
+  artifactKey: Guid(56128c4a33e7e44498cc0459b0f4feea) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/house/BUILDING/building-bunker-egg-chamber-floor-01.png using Guid(56128c4a33e7e44498cc0459b0f4feea) Importer(815301076,1909f56bfc062723c751e8b465ee728b) (PreviewImporter) -> (artifact id: 'a410990e6c74537883f9fd662f3697ed') in 0.0653153 seconds
+Number of updated asset objects reloaded before import = 0Number of asset objects unloaded after import = 3
+
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0
