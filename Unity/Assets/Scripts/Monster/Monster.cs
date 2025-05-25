@@ -141,7 +141,7 @@ public class EnemyAI : MonoBehaviour
         }
 
         float distance = Vector2.Distance(transform.position, player.position);
-        if (distance <= 2)
+        if (distance <= 2.5f)
             state = State.Attack;
         else
         {
@@ -157,13 +157,13 @@ public class EnemyAI : MonoBehaviour
     {
         agent.speed = 0;
 
-
-        // 플레이어 HP 감소 (추가 필요)
-
-        // player.hp --;
-
         if (!isWaiting)  // 딜레이 중복 실행 방지
         {
+
+            // 플레이어 HP 감소 (추가 필요)
+
+            // player.hp --;
+            player.GetComponent<PlayerHP>().TakeDamage(1);
             anim.SetTrigger("Attack"); // 애니메이션 먼저 실행
             StartCoroutine(AttackDelay());
         }
@@ -173,7 +173,7 @@ public class EnemyAI : MonoBehaviour
     private IEnumerator AttackDelay()
     {
         isWaiting = true;
-        yield return new WaitForSeconds(0.5f); // 0.5초 대기
+        yield return new WaitForSeconds(1f); // 0.5초 대기
 
         float distance = Vector2.Distance(transform.position, player.position);
         if (distance > 2)

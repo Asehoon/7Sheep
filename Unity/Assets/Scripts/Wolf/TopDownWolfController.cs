@@ -22,6 +22,7 @@ public class TopDownWolfController : MonoBehaviour
     private float timeSinceLastUpdate = 0f;
 
     public bool isItemOn = false;
+    private bool hasPlayedBattleBGM = false;
 
     private enum State
     {
@@ -63,6 +64,18 @@ public class TopDownWolfController : MonoBehaviour
         UpdateAnimationDirection();
         anim.SetBool("IsMoving", agent.velocity.magnitude > 0.1f);
         UpdateWolfDistanceUI(currentDistance);
+
+        if (!hasPlayedBattleBGM && currentDistance <= 30f)
+        {
+            BGMManager.Instance?.PlayBattle(); 
+            hasPlayedBattleBGM = true;
+        }
+        else if (hasPlayedBattleBGM && currentDistance > 40f) // 다시 멀어지면 초기화
+        {
+            BGMManager.Instance?.PlayExploration();
+            hasPlayedBattleBGM = false;
+        }
+
 
         switch (state)
         {
@@ -166,7 +179,7 @@ public class TopDownWolfController : MonoBehaviour
             return;
         }
 
-        if (distance <= 5f)
+        if (distance <= 2.5f)
         {
             state = State.Attack;
         }
@@ -187,6 +200,7 @@ public class TopDownWolfController : MonoBehaviour
 
         if (!isWaiting)
         {
+            player.GetComponent<PlayerHP>().TakeDamage(1);
             anim.SetTrigger("Attack");
             StartCoroutine(AttackDelay());
         }
@@ -235,7 +249,7 @@ public class TopDownWolfController : MonoBehaviour
             speed = 6f;
         else
             speed = 3f;
-
+         
         agent.speed = speed;
     }
 

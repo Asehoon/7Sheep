@@ -75,11 +75,15 @@ public class LightManager : MonoBehaviour
 
     private void UpdateClockRotation()
     {
-        float hour = (gameTime / 60f); // 현재 시각 (0~24)
-        float shiftedHour = (hour - 15f + 24f) % 12f; // 오후 3시(15시)를 0 기준으로 이동 (0~12)
-        float angle = (shiftedHour / 12f) * 180f;  // 12시간 → 180도 회전 (반시계 방향)
-        hourHand.localRotation = Quaternion.Euler(0, 0, -90f - angle); // 시작점 -90도에서부터 회전
+        float hour24 = (gameTime / 60f); // 현재 시각 (0~24)
+
+        // 하루 24시간 = 360도 반시계 회전, 기준점 오후 3시(-90도)
+        float angle = ((hour24 - 15f + 24f) % 24f) * -15f;
+
+        hourHand.localRotation = Quaternion.Euler(0, 0, -90f + angle);
     }
+
+
 
 
 

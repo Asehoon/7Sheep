@@ -13,6 +13,8 @@ public class ItemMananger : MonoBehaviour
         CameraZoom,
         SpeedDown,
         Trap,
+        SpeedUp,
+        HpUP
     }
 
     public static ItemMananger Instance;
@@ -84,6 +86,37 @@ public class ItemMananger : MonoBehaviour
                     targetName: target.name
                 ));
                 break;
+            case ItemType.SpeedUp:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () =>
+                    {
+                        movement.speed *= 2;
+                    },
+                    onEnd: () => movement.speed/=2,
+                    targetName: target.name
+                ));
+                break;
+            case ItemType.HpUP:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () =>
+                    {
+                        PlayerHP hp = movement.GetComponent<PlayerHP>();
+                        if (hp != null)
+                        {
+                            hp.Heal(1); // 1만큼 HP 회복
+                        }
+                    },
+                    onEnd: () => { },
+                    targetName: target.name
+                ));
+                break;
+            
         }
     }
 
@@ -94,8 +127,10 @@ public class ItemMananger : MonoBehaviour
         return type switch
         {
             ItemType.CameraZoom => 30f,
-            ItemType.SpeedDown => 5f,
+            ItemType.SpeedDown => 10f,
             ItemType.Trap => 3f,
+            ItemType.SpeedUp=> 30f,
+            ItemType.HpUP =>1f,
             _ => 5f
         };
     }

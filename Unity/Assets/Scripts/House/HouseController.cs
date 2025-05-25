@@ -8,6 +8,7 @@ public class HouseController : MonoBehaviour
 
     public bool isInside = false;
 
+
     public void ToggleHouse()
     {
         if (!isInside)
@@ -19,8 +20,12 @@ public class HouseController : MonoBehaviour
             ExitHouse();
         }
     }
+    public void ToggleLayer()
+    {
 
-    private void EnterHouse()
+    }
+
+    public void EnterHouse()
     {
         isInside = true;
 
@@ -28,7 +33,7 @@ public class HouseController : MonoBehaviour
             roofTilemap.gameObject.SetActive(false);  // ÁöºØ ²¨¹ö¸²
     }
 
-    private void ExitHouse()
+    public void ExitHouse()
     {
         isInside = false;
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -35,6 +36,13 @@ public class GameManager : MonoBehaviour
                 image.color = color;
                 break;
             }
+        }
+
+        if (rescuedSheep.Count >= 7)
+        {
+
+            BGMManager.Instance.PlaySuccess();
+            SceneManager.LoadScene(2); //¼º°ø scene
         }
     }
 }
