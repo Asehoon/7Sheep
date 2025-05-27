@@ -13,6 +13,8 @@ public class ItemMananger : MonoBehaviour
         CameraZoom,
         SpeedDown,
         Trap,
+        SpeedUp,
+        HpUP
     }
 
     public static ItemMananger Instance;
@@ -23,16 +25,11 @@ public class ItemMananger : MonoBehaviour
     private Dictionary<ItemType, float> activeEffects = new();
     private Dictionary<ItemType, Coroutine> runningCoroutines = new();
 
-    float originalSpeed;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
     }
-
-    // 1. originalSpeed를 각 GameObject별로 저장
-    private Dictionary<GameObject, float> originalSpeeds = new();
 
     public void ApplyItemEffect(ItemType type, GameObject target, Sprite sprite = null)
     {
@@ -44,26 +41,8 @@ public class ItemMananger : MonoBehaviour
             return;
         }
 
-        System.Action<float> SetSpeed = null;
-
-        var movement = target.GetComponent<TopDownCharacterController>();
-        if (movement != null)
-        {
-            if (!originalSpeeds.ContainsKey(target))
-                originalSpeeds[target] = movement.speed;
-
-            SetSpeed = value => movement.speed = value;
-        }
-        else
-        {
-            var enemy = target.GetComponent<TopDownWolfController>();
-            if (!originalSpeeds.ContainsKey(target))
-                originalSpeeds[target] = enemy.speed;
-
-            SetSpeed = value => enemy.speed = value;
-        }
-
-        float originalSpeed = originalSpeeds[target];
+        TopDownCharacterController movement = target.GetComponent<TopDownCharacterController>();
+        TopDownWolfController enemy = target.GetComponent<TopDownWolfController>();
 
         switch (type)
         {
@@ -83,8 +62,12 @@ public class ItemMananger : MonoBehaviour
                     type,
                     effectDuration,
                     sprite,
-                    onStart: () => SetSpeed?.Invoke(originalSpeed * 0.5f),
-                    onEnd: () => SetSpeed?.Invoke(originalSpeed),
+                    onStart: () =>
+                    {
+                        enemy.isItemOn = true;
+                        enemy.speed /= 2;
+                    },
+                    onEnd: () => enemy.isItemOn = false,
                     targetName: target.name
                 ));
                 break;
@@ -94,11 +77,46 @@ public class ItemMananger : MonoBehaviour
                     type,
                     effectDuration,
                     sprite,
-                    onStart: () => SetSpeed?.Invoke(0f),
-                    onEnd: () => SetSpeed?.Invoke(originalSpeed),
+                    onStart: () =>
+                    {
+                        enemy.isItemOn = true;
+                        enemy.speed = 0;
+                    },
+                    onEnd: () => enemy.isItemOn = false,
                     targetName: target.name
                 ));
                 break;
+            case ItemType.SpeedUp:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () =>
+                    {
+                        movement.speed *= 2;
+                    },
+                    onEnd: () => movement.speed/=2,
+                    targetName: target.name
+                ));
+                break;
+            case ItemType.HpUP:
+                runningCoroutines[type] = StartCoroutine(RunTimedEffect(
+                    type,
+                    effectDuration,
+                    sprite,
+                    onStart: () =>
+                    {
+                        PlayerHP hp = movement.GetComponent<PlayerHP>();
+                        if (hp != null)
+                        {
+                            hp.Heal(1); // 1만큼 HP 회복
+                        }
+                    },
+                    onEnd: () => { },
+                    targetName: target.name
+                ));
+                break;
+            
         }
     }
 
@@ -109,8 +127,10 @@ public class ItemMananger : MonoBehaviour
         return type switch
         {
             ItemType.CameraZoom => 30f,
-            ItemType.SpeedDown => 5f,
-            ItemType.Trap => 3f,
+            ItemType.SpeedDown => 8f,
+            ItemType.Trap => 2f,
+            ItemType.SpeedUp=> 12f,
+            ItemType.HpUP =>1f,
             _ => 5f
         };
     }

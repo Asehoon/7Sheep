@@ -63,8 +63,18 @@ public class BushTriggerHandler : MonoBehaviour
         sr.color = c;
     }
 
-    public void SetLayer(string layerName)
+     public void SetLayer(string layerName)
     {
-        gameObject.layer = LayerMask.NameToLayer(layerName);
+        int layer = LayerMask.NameToLayer(layerName);
+        SetLayerRecursive(gameObject, layer);
+    }
+
+    private void SetLayerRecursive(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursive(child.gameObject, layer);
+        }
     }
 }

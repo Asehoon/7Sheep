@@ -48,6 +48,7 @@ public class BushController : MonoBehaviour
         {
             enemiesInBush.Remove(enemy);
             enemy.SetLayer("Visible");
+            //
         }
     }
 }

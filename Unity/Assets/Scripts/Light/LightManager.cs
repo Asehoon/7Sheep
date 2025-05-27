@@ -15,16 +15,13 @@ public class LightManager : MonoBehaviour
     public static int PlayerGold = 500;
 
     private bool lightsAreEnabled = true;
-    public Light2D[] childLights;
+    public Light2D[] childLight;
     private Coroutine timeFlowCoroutine;
     private Coroutine lightingCoroutine;
     private Color targetColor;
 
     [Header("Time")]
     public TMP_Text TimeText;
-
-    [Header("Player")]
-    public TMP_Text PlayerGoldText;
 
     [Header("Clock Hands")]
     public Transform hourHand;
@@ -38,16 +35,12 @@ public class LightManager : MonoBehaviour
     public static bool isNight = false;
 
     [Header("Target Transforms")]
-    public Transform playerTransform;
-    public Transform wolfTransform;
-    public Transform lampTransform;
+    public Light2D playerLight;
+    public Light2D wolfLight;
+    public List<Light2D> enemyLights;
 
     public void Awake()
     {
-        childLights[0].transform.position = playerTransform.position;
-        childLights[1].transform.position = wolfTransform.position;
-        childLights[2].transform.position = lampTransform.position;
-
         SetLights(false);
     }
     public void Start()
@@ -75,11 +68,15 @@ public class LightManager : MonoBehaviour
 
     private void UpdateClockRotation()
     {
-        float hour = (gameTime / 60f); // 현재 시각 (0~24)
-        float shiftedHour = (hour - 15f + 24f) % 12f; // 오후 3시(15시)를 0 기준으로 이동 (0~12)
-        float angle = (shiftedHour / 12f) * 180f;  // 12시간 → 180도 회전 (반시계 방향)
-        hourHand.localRotation = Quaternion.Euler(0, 0, -90f - angle); // 시작점 -90도에서부터 회전
+        float hour24 = (gameTime / 60f); // 현재 시각 (0~24)
+
+        // 하루 24시간 = 360도 반시계 회전, 기준점 오후 3시(-90도)
+        float angle = ((hour24 - 15f + 24f) % 24f) * -15f;
+
+        hourHand.localRotation = Quaternion.Euler(0, 0, -90f + angle);
     }
+
+
 
 
 
@@ -131,7 +128,11 @@ public class LightManager : MonoBehaviour
         {
             newTargetColor = nightColor;
             if (!lightsAreEnabled)
+            {
                 SetLights(true);
+                Debug.Log("밤");
+            }
+                
         }
 
         if (targetColor != newTargetColor)
@@ -161,12 +162,17 @@ public class LightManager : MonoBehaviour
         light.color = targetColor;
     }
 
-    private void SetLights(bool enable)
+    private void SetLights(bool state)
     {
-        lightsAreEnabled = enable;
-        foreach (Light2D light in childLights)
+        lightsAreEnabled = state;
+
+        playerLight.enabled = state;
+
+        wolfLight.enabled = state;
+
+        foreach (Light2D light in enemyLights)
         {
-            light.enabled = enable;
+            light.enabled = state;
         }
     }
 }
